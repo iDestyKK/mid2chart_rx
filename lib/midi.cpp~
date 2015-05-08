@@ -247,7 +247,6 @@ void midi::process_notes_in_channels() {
 	}
 	
 	for (int i = 0; i < num_channel; i++) {
-		cout << "Processing: " << channels[i].getName() << endl;
 		//For each channel, we are going to scan through the bytes and do magic.
 		pos = channels[i].getStart() + 12 + channels[i].getName().length();
 		

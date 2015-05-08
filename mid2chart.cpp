@@ -16,9 +16,9 @@ void display_MIDI_information(midi &);
 void display_MIDI_tracks(midi &);
 
 int main(int argc, char* argv[]) {
-	if (argc != 2) {
+	if (argc != 2 && argc != 3) {
 		//User didn't specify a file!!!
-		cerr << "Usage: " << argv[0] << " midi" << endl;
+		cerr << "Usage: " << argv[0] << " midi [export]" << endl;
 		return 1;
 	}
 	
@@ -35,12 +35,14 @@ int main(int argc, char* argv[]) {
 	convert.splice_channels();
 	convert.filter_channels();
 	
-	//Display the track names.
-	display_MIDI_tracks(convert);
-	
 	//Process the remaining channels.
 	convert.process_notes_in_channels();
 	
 	//Finalize the chart.
-	convert.write_chart("test.chart");
+	if (argc == 3) {
+		convert.write_chart(argv[2]);
+	}
+	else {
+		convert.write_chart("converted.chart");
+	}
 }
